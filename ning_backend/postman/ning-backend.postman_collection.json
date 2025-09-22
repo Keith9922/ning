@@ -1,0 +1,186 @@
+{
+  "info": {
+    "name": "Ning Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"] },
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"user1\",\n  \"password\": \"testpass123\"\n}" }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] },
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"user1\",\n  \"password\": \"testpass123\"\n}" }
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/auth/me", "host": ["{{base_url}}"], "path": ["auth", "me"] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{auth_token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/auth/logout", "host": ["{{base_url}}"], "path": ["auth", "logout"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Forum",
+      "item": [
+        {
+          "name": "List Posts",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/forum/posts?offset=0&limit=20", "host": ["{{base_url}}"], "path": ["forum", "posts"], "query": [{"key": "offset", "value": "0"}, {"key": "limit", "value": "20"}] }
+          }
+        },
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{auth_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/forum/posts", "host": ["{{base_url}}"], "path": ["forum", "posts"] },
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Hello\",\n  \"content\": \"<p>World</p>\"\n}" }
+          }
+        },
+        {
+          "name": "Like Toggle",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{auth_token}}" } ],
+            "url": { "raw": "{{base_url}}/forum/posts/{{post_id}}/like", "host": ["{{base_url}}"], "path": ["forum", "posts", "{{post_id}}", "like"] }
+          }
+        },
+        {
+          "name": "List Comments",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/forum/posts/{{post_id}}/comments", "host": ["{{base_url}}"], "path": ["forum", "posts", "{{post_id}}", "comments"] }
+          }
+        },
+        {
+          "name": "Create Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{auth_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/forum/posts/{{post_id}}/comment", "host": ["{{base_url}}"], "path": ["forum", "posts", "{{post_id}}", "comment"] },
+            "body": { "mode": "raw", "raw": "{\n  \"content\": \"nice!\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Study",
+      "item": [
+        {
+          "name": "Add Mistake",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{auth_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/study/mistakes", "host": ["{{base_url}}"], "path": ["study", "mistakes"] },
+            "body": { "mode": "raw", "raw": "{\n  \"titleSlug\": \"two-sum\",\n  \"title\": \"Two Sum\",\n  \"difficulty\": \"Easy\",\n  \"tags\": [\"array\", \"hash\"],\n  \"note\": \"missed hash map\"\n}" }
+          }
+        },
+        {
+          "name": "List Mistakes",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{auth_token}}" } ],
+            "url": { "raw": "{{base_url}}/study/mistakes", "host": ["{{base_url}}"], "path": ["study", "mistakes"] }
+          }
+        },
+        {
+          "name": "Stats",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{auth_token}}" } ],
+            "url": { "raw": "{{base_url}}/study/stats?days=7", "host": ["{{base_url}}"], "path": ["study", "stats"], "query": [{"key": "days", "value": "7"}] }
+          }
+        },
+        {
+          "name": "Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{auth_token}}" } ],
+            "url": { "raw": "{{base_url}}/study/recommendations?limit=10", "host": ["{{base_url}}"], "path": ["study", "recommendations"], "query": [{"key": "limit", "value": "10"}] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Agent",
+      "item": [
+        {
+          "name": "Create Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{auth_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/agent/session", "host": ["{{base_url}}"], "path": ["agent", "session"] },
+            "body": { "mode": "raw", "raw": "{\n  \"role\": \"后端工程师\",\n  \"focus\": \"算法+网络\"\n}" }
+          }
+        },
+        {
+          "name": "Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{auth_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{base_url}}/agent/chat", "host": ["{{base_url}}"], "path": ["agent", "chat"] },
+            "body": { "mode": "raw", "raw": "{\n  \"session_id\": \"{{session_id}}\",\n  \"message\": \"你好\"\n}" }
+          }
+        },
+        {
+          "name": "Session Detail",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{auth_token}}" } ],
+            "url": { "raw": "{{base_url}}/agent/session/{{session_id}}", "host": ["{{base_url}}"], "path": ["agent", "session", "{{session_id}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}
+
+
